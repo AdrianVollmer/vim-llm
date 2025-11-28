@@ -164,6 +164,8 @@ Make sure the llm tool is properly installed:
 
 ```bash
 uv tool install llm
+# Or with pipx:
+pipx install llm
 ```
 
 ### Command fails with error
@@ -171,7 +173,7 @@ uv tool install llm
 Check that llm is working correctly:
 
 ```bash
-echo "test" | uv tool run llm -t <template>
+echo "test" | llm -t <template>
 ```
 
 ### No diff showing
