@@ -14,7 +14,7 @@ Language Models.
 ## Requirements
 
 - Vim 8.0+ or Neovim
-- [`llm`](https://llm.datasette.io/) tool (installed via uv)
+- [`llm`](https://llm.datasette.io/) tool
 
 ## Installation
 
