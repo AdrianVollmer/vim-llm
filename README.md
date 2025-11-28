@@ -39,35 +39,48 @@ Copy or symlink this directory to your `~/.vim/pack/<plugins>/start/` directory.
 ### Basic Command
 
 ```vim
-:<range>Llm <template> [<prompt>...]
+:[range]Llm <template> [<prompt>...]
 ```
 
-- `<range>`: Visual selection or line range (e.g., `1,10` or use visual mode)
+- `[range]`: Optional line range (e.g., `1,10` or use visual mode). If omitted, uses the entire buffer.
 - `<template>`: Name of an llm template (supports tab completion)
 - `<prompt>`: Optional additional prompt text
 
 ### Example Workflow
 
+#### On Selected Text
+
 1. Select text in visual mode (press `v` or `V`)
 2. Execute the command:
-  
+
 ```vim
    :'<,'>Llm summarize
    ```
-  
+
 or with an additional prompt:
-  
+
 ```vim
    :'<,'>Llm summarize make it concise
    ```
 
-1. A diff view opens in a new tab showing:
+#### On Entire Buffer
+
+Simply run the command without a range:
+
+```vim
+   :Llm summarize
+   ```
+
+#### Reviewing Changes
+
+1. A diff view opens showing:
    - Left pane: Original text
    - Right pane: Modified text from llm
 
 2. Review the changes and either:
-   - Type `:LlmAccept` to apply the changes
-   - Close the tab to discard changes
+   - Type `:LlmAcceptAll` to apply all changes
+   - Type `dp` on a hunk to accept that specific hunk
+   - Type `<Leader>q` to discard and close
 
 ### Tab Completion
 
@@ -107,22 +120,53 @@ Main command to execute llm on selected text.
 **Examples:**
 
 ```vim
-:1,10Llm summarize
-:'<,'>Llm fix-grammar
+:Llm summarize               " Process entire buffer
+:1,10Llm summarize           " Process lines 1-10
+:'<,'>Llm fix-grammar        " Process visual selection
 :'<,'>Llm translate translate to Spanish
 ```
 
-### `:LlmAccept`
+### Diff View Commands
 
-Accept changes shown in the diff view and apply them to the original buffer.
+The following commands are available in the diff view buffer:
+
+#### `:LlmAcceptAll`
+
+Accept all changes and apply them to the original buffer.
 
 **Syntax:**
 
 ```vim
-:LlmAccept
+:LlmAcceptAll
 ```
 
-This command is only available in the diff view buffer.
+**Keybinding:** `<Leader>a`
+
+#### `:LlmAcceptHunk`
+
+Accept the current hunk (change under cursor) and push it to the original buffer.
+
+**Syntax:**
+
+```vim
+:LlmAcceptHunk
+```
+
+**Keybinding:** `dp`
+
+After accepting a hunk, use `]c` to jump to the next hunk.
+
+#### `:LlmClose`
+
+Close the diff view without accepting any remaining changes.
+
+**Syntax:**
+
+```vim
+:LlmClose
+```
+
+**Keybinding:** `<Leader>q`
 
 ## Configuration
 

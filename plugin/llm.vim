@@ -21,7 +21,7 @@ if !exists('g:llm_command')
 endif
 
 " Main command: :Llm <template> [<prompt>...]
-command! -range -nargs=+ -complete=customlist,s:CompleteTemplates Llm
+command! -range=% -nargs=+ -complete=customlist,s:CompleteTemplates Llm
       \ call s:ExecuteLlm(<line1>, <line2>, <f-args>)
 
 " Get list of available templates for tab completion
